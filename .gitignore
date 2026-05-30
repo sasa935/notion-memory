@@ -1,0 +1,6 @@
+.DS_Store
+*.bak-*
+*.log
+# never commit local machine config / secrets
+config
+local/

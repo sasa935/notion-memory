@@ -1,0 +1,3 @@
+# Copy to ~/.config/ai-memory/config and edit.
+# The Notion page or database that holds your AI memory (name or Notion ID).
+NOTION_MEMORY_ROOT=AI Memory

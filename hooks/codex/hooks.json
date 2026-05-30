@@ -1,0 +1,16 @@
+{
+  "_comment": "Optional Codex Stop hook. Copy/merge into ~/.codex/hooks.json. Codex already has native memories; this adds Notion sync on top. Edit the path to match where you cloned the repo.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/notion-memory/hooks/codex/auto-sync.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
