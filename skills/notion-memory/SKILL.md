@@ -92,3 +92,17 @@ AI Memory(根)
 - 跨项目通用的(某云 SOP、CI/CD、通用踩坑)→ 进 **Tech & Ops**,不塞进单个项目。
 - 命令、配置、ID、URL、报错**逐字保留**(代码块)。
 - 同一项目永远更新**同一行**;新踩坑并进「踩坑」、新进展并进「更新记录」,**不新开页、不按日期堆**。
+
+## 九、用 Notion MCP 整理/写入时的实操注意(血泪经验)
+真整理过一遍才知道的坑,照做能避开:
+- **长内容 / 新页一律用 `create-pages`**(它正确处理 `\n`、表格、代码块)。**别用 `update-page` 的 `insert_content`/`replace_content` 写多行**——它会把 `\n` 吃成字面 "n"、把表格 `|` 转义,整段挤成一坨。
+- **改已有页**:用 `update-page` 的 `update_content` 做定点 search-replace(`old_str` 和现有内容**精确匹配**,`new_str` 尽量单行)——这条稳。
+- **⚠️ `allow_deleting_content: true` 会把不在 `new_str` 里的子页删进回收站!** 用之前务必:要么父页没有活子页,要么把全部子页用 `<page url="...">标题</page>`(**闭合标签**,非自闭合)列进 `new_str`。且**引用回收站里的页会报 `Failed to create block`**。
+- **大块知识做成子页**(在某 section 下 `create-pages` 建子页),别全塞进一个超长 inline 正文——好读,也避开长内容写入失败。
+- **属性值格式**:多选(Type/Cloud)传 JSON 数组字符串(如 `["Agent"]`);日期用展开键 `date:<列名>:start`;名为 `id`/`url` 的属性加 `userDefined:` 前缀。
+- **删除/归档**:Notion MCP 没有干净的删除工具;`move-pages` 能搬,但**回收站里的页搬不动**。要删让用户在 Notion UI 里点删,或谨慎用 `allow_deleting`。
+- **活项目放 Projects 数据库,Archive 只放真正不用的**;迁移完的旧自由页是冗余,清掉别留着,免得造成「我项目被归档了?」的错觉。
+
+## 十、凭证 / 账号密码
+- 默认**不存明文密钥/密码**,只记「在哪取」(`.env` / Keychain / 密码管理器)。
+- 用户明确要汇总账号密码时:单独建一页、置顶安全提醒(建议迁 1Password/Bitwarden、别分享此页),且**绝不**让明文进入会被分享的页面或开源仓库。发现散落的明文密钥,提醒用户**轮换**。
