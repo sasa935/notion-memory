@@ -33,17 +33,17 @@ You are installing **notion-memory** for a possibly non-technical user. **Do the
    - No Notion account? Point them to https://www.notion.so to sign up (free), then continue.
    - **Wait** for the user to confirm Notion is connected before going on.
 
-5. 🧑 **Pick the memory notebook.** Ask: *"What should I name the Notion page that stores your AI memory?"* (default: `AI Memory`). If it doesn't exist, offer to create it via the Notion connector. Then write the choice into the config:
+5. 🧑 **Pick the memory notebook.** Ask: *"What should I name the Notion page that stores your memory?"* (default: `AI Memory`). If it doesn't exist, offer to create it via the Notion connector. Then write the choice into the config:
    ```bash
    printf 'NOTION_MEMORY_ROOT=%s\n' "<the name they chose>" > ~/.config/ai-memory/config
    ```
 
-6. **Verify.** Confirm `~/.claude/skills/notion-memory/SKILL.md` exists. Then run a tiny end-to-end test: ask the user for one small ops fact they always forget (a command, a port…), use the `notion-memory` skill to save it, and confirm it shows up in their Notion.
+6. **Verify.** Confirm `~/.claude/skills/notion-memory/SKILL.md` exists. Then run a tiny end-to-end test: ask the user for one small thing worth remembering (a command they forget, a project link, a plan — anything), use the `notion-memory` skill to save it, and confirm it shows up in their Notion.
 
 7. **Teach usage in plain language:**
-   - *"Any time a chat gives you something worth keeping — a deploy step, a port, an exact command, a gotcha — just say **'save this to Notion'** or type **/sync-memory**. I'll file it under the right topic in your Notion."*
-   - *"It never writes on its own — you're always in control."*
-   - *"On another computer, do the same: clone, run install, connect Notion — and you share the same memory everywhere."*
+   - *"Any time a chat gives you something worth keeping — a project decision, a deploy step, a travel plan, anything — just say **'save this to Notion'** or type **/sync-memory**. I'll file it under the right topic in your Notion."*
+   - *"It's your long-term memory (technical or not), shared across all your AI tools and computers — not the tool's temporary session memory."*
+   - *"It never writes on its own — you're always in control. On another computer, do the same clone + install + connect Notion, and you share the same memory."*
 
 ## Safety rules for the AI (do not skip)
 - **Never** store secrets, passwords, API keys, or tokens in memory — only note *where to find them*.

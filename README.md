@@ -1,13 +1,13 @@
 # notion-memory
 
-> One shared memory for all your AI coding tools, across all your machines — backed by **your own Notion**.
+> Your long-term memory for every AI assistant, across every machine — backed by **your own Notion**.
 
 [中文说明 →](README.zh.md)
 
 ## The problem
-You work across several AI tools (Claude Code, Claude Desktop, Cowork, Codex) and more than one computer. The hard-won operational knowledge — deploy steps, ports, server configs, the exact CLI flags you can never remember, the gotchas — gets scattered, goes stale, and is missing the moment you switch machines or tools.
+You work across several AI tools (Claude Code, Claude Desktop, Cowork, Codex) and more than one computer. The things you'll want again later — project docs and architecture decisions, hard-won deploy/ops know-how (ports, configs, the exact CLI flags you never remember), even non-work things like a trip you planned or something you bought — get scattered, go stale, and vanish the moment you switch tools or machines.
 
-**notion-memory** captures that reusable operational knowledge into **your own Notion** (cloud → automatically cross-machine), so every AI tool reads and writes the *same* memory. The rules live in one skill: edit once, applies everywhere.
+This isn't your tool's short-term session memory. **notion-memory** is *your* durable knowledge base — a cross-tool, cross-machine second brain — stored in **your own Notion**, so every AI assistant reads and writes the *same* memory. The rules live in one skill: edit once, applies everywhere.
 
 ## ✨ One-prompt install (no coding needed)
 Open **Claude Code**, **Claude Desktop**, or **Codex** and paste:
@@ -30,12 +30,17 @@ Then:
 `install.sh` is idempotent and backs up anything it touches. It symlinks the skill into Claude (`~/.claude/skills`) and Codex (`~/.codex/skills`), installs the `/sync-memory` command, and adds a `SessionStart` hook that auto-pulls skill updates.
 
 ## Usage
-When a conversation gives you something worth keeping, say **"save this to Notion"** or run **`/sync-memory`**. It files the knowledge by **task → sub-topic** into your Notion. **It never writes automatically — you stay in control.**
+When a conversation produced something you'll want later — a project decision, a deploy step, a travel plan, anything — say **"save this to Notion"** or run **`/sync-memory`**. It files it by **area → sub-topic** into your Notion. **It never writes automatically — you stay in control.**
+
+## What you can keep in it
+- **Projects** — overview, stack, links, status, **docs, architecture & design, decisions** (a lightweight project hub).
+- **Tech / ops** — deploy steps, ports, configs, exact CLI flags, pitfalls (Alibaba Cloud, Cloudflare, …).
+- **Life** — travel, purchases, plans, preferences — anything worth remembering.
 
 ## How it's built
 - **Memory** lives in your **Notion** — the single, cross-machine source of truth.
 - **The connection** is the official **Notion MCP** (works in Claude & Codex).
-- **The update policy** lives in [`skills/notion-memory/SKILL.md`](skills/notion-memory/SKILL.md): save only reusable ops knowledge, organize by task→sub-topic (never by date), UPSERT (search → update in place, else create), keep commands verbatim, and stay safe under concurrent edits from multiple machines.
+- **The update policy** lives in [`skills/notion-memory/SKILL.md`](skills/notion-memory/SKILL.md): save anything worth remembering, organize by area→sub-topic (never by date), UPSERT (search → update in place, else create), keep facts verbatim, stay safe under concurrent edits from multiple machines.
 - **Triggers** are event-based, never clock-based — see [docs/triggers.md](docs/triggers.md).
 
 ## Add another machine
